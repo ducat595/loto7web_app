@@ -9,4 +9,13 @@
 <section id="test" hidden><div class="grid"><aside class="card"><h2>過去データで検証</h2><label for="start">初期学習回数</label><input id="start" type="number" min="10" value="200" step="1"><label for="limit">検証対象（直近）</label><select id="limit"><option value="20">20回</option><option value="100">100回</option><option value="0">全対象回</option></select><label for="testCandidates">各回の候補数</label><select id="testCandidates"><option value="12000">12,000組</option><option value="50000">50,000組</option></select><p class="hint muted">各回より前の履歴のみで10口を生成し、完全ランダム10口と照合します。</p><button id="runTest" class="primary" disabled>バックテストを実行</button><button id="cancelTest" hidden>中止する</button><progress id="progress" value="0" max="100" hidden></progress><p class="hint muted">全回の検証は時間がかかります。画面を開いたままお待ちください。</p></aside><div class="card test-comparison" tabindex="0" aria-label="方式とランダムの比較。枠内をスクロールできます。"><div class="topline"><h2>方式とランダムの比較</h2><button id="exportTest" disabled>CSV保存 ↓</button></div><p class="hint muted" id="testOrigin">添付の検証結果</p><div id="testSummary"></div><div class="scroll"><table><thead><tr><th>回号</th><th>本数字</th><th>方式の最大一致</th><th>ランダムの最大一致</th></tr></thead><tbody id="testRows"></tbody></table></div></div></div></section>
 <section id="history" hidden><div class="card"><div class="topline"><h2>数字の出現回数</h2><span class="badge">全履歴 · 本数字のみ</span></div><div class="scroll" style="margin-top:20px"><svg id="frequencyChart" viewBox="0 0 1110 300" role="img" aria-label="本数字1〜37の出現回数の棒グラフ" style="display:block;width:100%;min-width:740px;height:auto"></svg></div><p class="hint muted">横軸：本数字（1〜37）　縦軸：出現回数。スマホでは横にスクロールできます。</p><div id="freq" class="freq"></div></div><div class="card" style="margin-top:24px"><div class="topline"><h2>直近50回の抽選履歴</h2><button id="exportHistory">全履歴CSV保存 ↓</button></div><div class="scroll"><table><thead><tr><th>回号</th><th>抽選日</th><th>本数字</th></tr></thead><tbody id="historyRows"></tbody></table></div></div></section>
 <div class="note">このスコアは過去の傾向への適合度で、当せん確率ではありません。過去の結果は将来の当せんを保証せず、公正な抽選では各組み合わせの当せん確率は同じです。検証は本数字の一致数で比較し、ボーナス数字・等級・当せん金・収支は判定しません。</div><footer><span>LOTO7 三輪数字研究室</span><span>元のPython計算式をWeb向けに移植</span></footer></main>
-<script src="app.js?v=20261006-2118"></script></body></html>
+<script>
+(function(){
+ var el=document.getElementById('seed');
+ var value;
+ try{var values=new Uint32Array(1);window.crypto.getRandomValues(values);value=values[0];}
+ catch(e){value=Math.floor(Math.random()*4294967296);}
+ el.textContent=String(value);
+})();
+</script>
+<script src="app.js?v=20261006-2121" onerror="document.getElementById('status').textContent='app.jsを読み込めませんでした。index.htmlとapp.jsを同じフォルダーに配置し、再読み込みしてください。';"></script></body></html>
